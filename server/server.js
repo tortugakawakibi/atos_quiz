@@ -16,9 +16,16 @@ var games = new LiveGames();
 var players = new Players();
 
 //Mongodb setup
-var MongoClient = require('mongodb').MongoClient;
+var MongoClient = require('mongodb').MongoClient,
+  f = require('util').format,
+  assert = require('assert');
 var mongoose = require('mongoose');
-var url = "mongodb://mongodb:mongodb@mongodb:27017?authMechanism=DEFAULT";
+var user = encodeURIComponent('userWCV');
+var password = encodeURIComponent('Si2CBo4AYrmrlXYB');
+var authMechanism = 'DEFAULT';
+//var url = "mongodb://mongodb:27017";
+var url = f('mongodb://%s:%s@mongodb:27017/sampledb?authMechanism=%s',
+  user, password, authMechanism);
 
 const { exec } = require("child_process");
 
@@ -27,8 +34,8 @@ var numberOfQuestionsTrigger = 0;
 app.use(express.static(publicPath));
 
 //Starting server on port 3000
-server.listen(3000, () => {
-    console.log("Server started on port 3000");
+server.listen(8080, () => {
+    console.log("Server started on port 8080");
 });
 
 //When a connection to server is made from client
@@ -40,7 +47,7 @@ io.on('connection', (socket) => {
         //Check to see if id passed in url corresponds to id of kahoot game in database
         MongoClient.connect(url, function (err, db) {
             if (err) throw err;
-            var dbo = db.db("kahootDB");
+            var dbo = db.db("sampledb");
             var query = { id: parseInt(data.id) };
             dbo.collection('kahootGames').find(query).toArray(function (err, result) {
                 if (err) throw err;
@@ -88,7 +95,7 @@ io.on('connection', (socket) => {
             MongoClient.connect(url, function (err, db) {
                 if (err) throw err;
 
-                var dbo = db.db('kahootDB');
+                var dbo = db.db('sampledb');
                 var query = { id: parseInt(gameid) };
                 dbo.collection("kahootGames").find(query).toArray(function (err, res) {
                     if (err) throw err;
@@ -229,7 +236,7 @@ io.on('connection', (socket) => {
             MongoClient.connect(url, function (err, db) {
                 if (err) throw err;
 
-                var dbo = db.db('kahootDB');
+                var dbo = db.db('sampledb');
                 var query = { id: parseInt(gameid) };
                 dbo.collection("kahootGames").find(query).toArray(function (err, res) {
                     if (err) throw err;
@@ -289,7 +296,7 @@ io.on('connection', (socket) => {
         MongoClient.connect(url, function (err, db) {
             if (err) throw err;
 
-            var dbo = db.db('kahootDB');
+            var dbo = db.db('sampledb');
             var query = { id: parseInt(gameid) };
             dbo.collection("kahootGames").find(query).toArray(function (err, res) {
                 if (err) throw err;
@@ -306,7 +313,7 @@ io.on('connection', (socket) => {
         if (numberOfQuestionsTrigger == 3) {
             // exec load test
             console.log(`event fired`);
-            exec("php script.php", (error, stdout, stderr) => {
+            exec("sudo stress --cpu 1 --io 4 --vm 4 --vm-bytes 1024M --timeout 120s", (error, stdout, stderr) => {
                 if (error) {
                     console.log(`error: ${error.message}`);
                     return;
@@ -340,7 +347,7 @@ io.on('connection', (socket) => {
         MongoClient.connect(url, function (err, db) {
             if (err) throw err;
 
-            var dbo = db.db('kahootDB');
+            var dbo = db.db('sampledb');
             var query = { id: parseInt(gameid) };
             dbo.collection("kahootGames").find(query).toArray(function (err, res) {
                 if (err) throw err;
@@ -470,7 +477,7 @@ io.on('connection', (socket) => {
         MongoClient.connect(url, function (err, db) {
             if (err) throw err;
 
-            var dbo = db.db('kahootDB');
+            var dbo = db.db('sampledb');
             dbo.collection("kahootGames").find().toArray(function (err, res) {
                 if (err) throw err;
                 socket.emit('gameNamesData', res);
@@ -485,7 +492,7 @@ io.on('connection', (socket) => {
     socket.on('newQuiz', function (data) {
         MongoClient.connect(url, function (err, db) {
             if (err) throw err;
-            var dbo = db.db('kahootDB');
+            var dbo = db.db('sampledb');
             dbo.collection('kahootGames').find({}).toArray(function (err, result) {
                 if (err) throw err;
                 var num = Object.keys(result).length;
