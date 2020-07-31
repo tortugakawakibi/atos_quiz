@@ -20,12 +20,8 @@ var MongoClient = require('mongodb').MongoClient,
   f = require('util').format,
   assert = require('assert');
 var mongoose = require('mongoose');
-var user = encodeURIComponent('userWCV');
-var password = encodeURIComponent('Si2CBo4AYrmrlXYB');
-var authMechanism = 'DEFAULT';
-//var url = "mongodb://mongodb:27017";
-var url = f('mongodb://%s:%s@mongodb:27017/sampledb?authMechanism=%s',
-  user, password, authMechanism);
+
+var url = 'mongodb://user:password@mongodb:27017/atosdb';
 
 const { exec } = require("child_process");
 
