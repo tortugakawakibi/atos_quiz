@@ -22,8 +22,8 @@ var MongoClient = require('mongodb').MongoClient,
 var mongoose = require('mongoose');
 
 
-//var url = 'mongodb://user:password@mongodb:27017/atosdb?authMechanism=DEFAULT';
-var url = "mongodb://mongodb:27017/";
+var url = 'mongodb://user:password@mongodb:27017/';
+//var url = "mongodb://mongodb:27017/";
 
 const { exec } = require("child_process");
 
