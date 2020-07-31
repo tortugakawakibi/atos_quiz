@@ -36,18 +36,22 @@ server.listen(8080, () => {
 
 //When a connection to server is made from client
 io.on('connection', (socket) => {
-
+    
+    console.log("connection success 1");
     //When host connects for the first time
     socket.on('host-join', (data) => {
-
+        
+      console.log("connection success 2");
+      
         //Check to see if id passed in url corresponds to id of kahoot game in database
         MongoClient.connect(url, function (err, db) {
+            console.log("connection success 3");
             if (err) throw err;
             var dbo = db.db("atosdb");
             var query = { id: parseInt(data.id) };
             dbo.collection('kahootGames').find(query).toArray(function (err, result) {
                 if (err) throw err;
-
+              
                 //A kahoot was found with the id passed in url
                 if (result[0] !== undefined) {
                     var gamePin = Math.floor(Math.random() * 90000) + 10000; //new pin for game
