@@ -43,7 +43,7 @@ io.on('connection', (socket) => {
         //Check to see if id passed in url corresponds to id of kahoot game in database
         MongoClient.connect(url, function (err, db) {
             if (err) throw err;
-            var dbo = db.db("sampledb");
+            var dbo = db.db("atosdb");
             var query = { id: parseInt(data.id) };
             dbo.collection('kahootGames').find(query).toArray(function (err, result) {
                 if (err) throw err;
@@ -91,7 +91,7 @@ io.on('connection', (socket) => {
             MongoClient.connect(url, function (err, db) {
                 if (err) throw err;
 
-                var dbo = db.db('sampledb');
+                var dbo = db.db('atosdb');
                 var query = { id: parseInt(gameid) };
                 dbo.collection("kahootGames").find(query).toArray(function (err, res) {
                     if (err) throw err;
@@ -232,7 +232,7 @@ io.on('connection', (socket) => {
             MongoClient.connect(url, function (err, db) {
                 if (err) throw err;
 
-                var dbo = db.db('sampledb');
+                var dbo = db.db('atosdb');
                 var query = { id: parseInt(gameid) };
                 dbo.collection("kahootGames").find(query).toArray(function (err, res) {
                     if (err) throw err;
@@ -292,7 +292,7 @@ io.on('connection', (socket) => {
         MongoClient.connect(url, function (err, db) {
             if (err) throw err;
 
-            var dbo = db.db('sampledb');
+            var dbo = db.db('atosdb');
             var query = { id: parseInt(gameid) };
             dbo.collection("kahootGames").find(query).toArray(function (err, res) {
                 if (err) throw err;
@@ -343,7 +343,7 @@ io.on('connection', (socket) => {
         MongoClient.connect(url, function (err, db) {
             if (err) throw err;
 
-            var dbo = db.db('sampledb');
+            var dbo = db.db('atosdb');
             var query = { id: parseInt(gameid) };
             dbo.collection("kahootGames").find(query).toArray(function (err, res) {
                 if (err) throw err;
@@ -473,7 +473,7 @@ io.on('connection', (socket) => {
         MongoClient.connect(url, function (err, db) {
             if (err) throw err;
 
-            var dbo = db.db('sampledb');
+            var dbo = db.db('atosdb');
             dbo.collection("kahootGames").find().toArray(function (err, res) {
                 if (err) throw err;
                 socket.emit('gameNamesData', res);
@@ -488,7 +488,7 @@ io.on('connection', (socket) => {
     socket.on('newQuiz', function (data) {
         MongoClient.connect(url, function (err, db) {
             if (err) throw err;
-            var dbo = db.db('sampledb');
+            var dbo = db.db('atosdb');
             dbo.collection('kahootGames').find({}).toArray(function (err, result) {
                 if (err) throw err;
                 var num = Object.keys(result).length;
