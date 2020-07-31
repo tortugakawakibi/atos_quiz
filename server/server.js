@@ -29,7 +29,7 @@ var numberOfQuestionsTrigger = 0;
 
 app.use(express.static(publicPath));
 
-//Starting server on port 3000
+//Starting server on port 8080
 server.listen(8080, () => {
     console.log("Server started on port 8080");
 });
