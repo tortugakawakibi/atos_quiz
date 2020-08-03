@@ -25,7 +25,7 @@ var user = encodeURIComponent('userWCV');
 var password = encodeURIComponent('Si2CBo4AYrmrlXYB');
 var authMechanism = 'DEFAULT';
 //var url = "mongodb://mongodb:27017";
-var url = f('mongodb://%s:%s@mongodb:27017/sampledb?authMechanism=%s',
+var url = f('mongodb://%s:%s@mongodb:27017/atosdb?authMechanism=%s',
   user, password, authMechanism);
 
 
