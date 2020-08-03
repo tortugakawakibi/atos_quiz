@@ -21,8 +21,15 @@ var MongoClient = require('mongodb').MongoClient,
   assert = require('assert');
 var mongoose = require('mongoose');
 
+var user = encodeURIComponent('userWCV');
+var password = encodeURIComponent('Si2CBo4AYrmrlXYB');
+var authMechanism = 'DEFAULT';
+//var url = "mongodb://mongodb:27017";
+var url = f('mongodb://%s:%s@mongodb:27017/sampledb?authMechanism=%s',
+  user, password, authMechanism);
 
-var url = 'mongodb://user:password@mongodb:27017/';
+
+//var url = 'mongodb://user:password@mongodb:27017/';
 //var url = "mongodb://mongodb:27017/";
 
 const { exec } = require("child_process");
